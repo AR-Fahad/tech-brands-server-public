@@ -28,7 +28,7 @@ async function run() {
 
     const database = client.db("brandsDB");
     const products = database.collection("products");
-    // const cart = database.collection("cart");
+    const cart = database.collection("cart");
 
     // products
     app.get("/products", async (req, res) => {
@@ -39,6 +39,12 @@ async function run() {
     app.post("/products", async (req, res) => {
       const newItem = req.body;
       const result = await products.insertOne(newItem);
+      res.send(result);
+    });
+
+    app.post("/cart", async (req, res) => {
+      const addedItem = req.body;
+      const result = await cart.insertOne(addedItem);
       res.send(result);
     });
 
